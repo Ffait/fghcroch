@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+Новое обращение от пользователя:
+
+    {{ content }}
+
+    {% if user %}Пользователь: {{ user.username }}{% endif %}
+    Email пользователя: {{ email }}
+
+
+{% endautoescape %}

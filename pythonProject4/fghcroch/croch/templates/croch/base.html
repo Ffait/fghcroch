@@ -1,0 +1,139 @@
+{% load static %}
+{% load croch_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link type="text/css" href="{% static 'croch/css/styles.css' %}" rel="stylesheet" />
+    <link href="{% static 'croch/images/favicon.ico' %}" rel="icon" type="image/x-icon">
+</head>
+<body class="backgr">
+<div id="wrap">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <nav class="navbar navbar-expand-lg navbar-light color_back">
+        <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="{% static 'croch/images/logo.png' %}" alt="/" width="30" height="24">
+      Магазин рукоделия
+    </a>
+  </div>
+  <div class="container-fluid">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Категории
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% show_categories %}
+          </ul>
+        </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}">Корзина</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile_detail' user.profile.slug %}">Профиль пользователя</a>
+          </li>
+          {% if not user.is_superuser and not user.is_staff %}
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_product' %}">Добавить товар</a>
+          </li>
+          {% endif %}
+          {% if not user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'feedback' %}">Обратная связь</a>
+          </li>
+          {% else %}
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Войти</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+          </li>
+          {% endif %}
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container my-5">
+{% block content %}
+{% endblock %}
+
+{% if page_obj.has_other_pages %}
+  <nav>
+    <ul class="pagination pagination-sg justify-content-center">
+      {% if page_obj.has_previous %}
+        <li class='page-item py-5'>
+          <a class="page-link text-bg-light" href="?page= {{ page_obj.previous_page_number }}">Предыдущая</a>
+        </li>
+      {% endif %}
+      {% for p in paginator.page_range %}
+        {% if p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+          <li class="page-item py-5">
+            <a class="page-link text-bg-light" href="?page={{ p }}">{{ p }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+        {% if page_obj.has_next %}
+          <li class='page-item py-5'>
+           <a class="page-link text-bg-light" href="?page= {{ page_obj.next_page_number }}">Следующая</a>
+          </li>
+        {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+
+</div>
+<script src="{% static 'croch/js/backend.js' %}"></script>
+{% block script %} {% endblock %}
+  </div>
+<footer class="footer" style="top: 50px;">
+  <div class="container">
+    <div class="row">
+    <div class="col-md-4">
+      <a href="https://t.me/Faith_fgh" target="_blank" class="btn">
+     Телеграмм для обратной связи
+      </a>
+    </div>
+        <div class="col-md-4">
+          <a href="https://vk.com/fat___ass" target="_blank" class="btn">
+          ВКонтакте для обратной связи
+          </a>
+        </div>
+    <div class="col-md-4">
+      <a href="https://t.me/fghcroch" target="_blank" class="btn">
+      Посмотреть изделия из нашей пряжи ->
+      </a>
+    </div>
+  </div>
+  </div>
+  <p>
+  © 2022 - 2023
+  </p>
+
+</footer>
+
+
+</body>
+</html>

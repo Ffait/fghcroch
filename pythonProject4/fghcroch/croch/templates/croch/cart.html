@@ -1,0 +1,33 @@
+{% extends 'croch/base.html' %}
+{% block content %}
+
+ <div class="card mb-3 border-0 nth-shadow color_back">
+    <div class="card-body">
+            <div class="card-title">
+    {{ cart.total_price }}
+   Количество товаров в корзине: {{ cart.total_items_by_product_type }}
+<hr>
+{% for item in cart_items %}
+    {{ item.name }}
+    {{ item.price }} руб.
+
+<p></p>
+<form method="post" action="{% url 'item_delete' item.id %}">
+{% csrf_token %}
+    <button name="submit" class="btn btn-light">Удалить</button>
+</form>
+        <hr>
+{% endfor %}
+{% if cart.total_items_by_product_type == 0 %}
+    <a href="{% url 'create_order' %}" class="btn btn-light disabled">Заказать</a>
+    <p></p>
+    <a href="{% url 'home' %}" class="btn btn-light">Добавить товары</a>
+{% else %}
+<a href="{% url 'create_order' %}" class="btn btn-light">Заказать</a>
+<p></p>
+<a href="{% url 'home' %}" class="btn btn-light">Добавить ещё</a>
+{% endif %}
+            </div>
+    </div>
+ </div>
+{% endblock %}

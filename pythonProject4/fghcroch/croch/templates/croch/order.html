@@ -1,0 +1,33 @@
+{% extends 'croch/base.html' %}
+{% block content %}
+
+ <div class="card mb-3 border-0 nth-shadow color_back">
+    <div class="card-body">
+            <div class="card-title">
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5 mx-auto">
+    {% for p in cart_items %}
+    <div class="col">
+    <div class="card color_back p-3 text-center">
+        <h4 class="card-title">{{p.name}}</h4>
+        {% if p.cover %}
+        <img class="card-img-top" src="{{ p.cover.url }}" width="200" height="300" alt="{{ p.name }}">
+        {% endif %}
+        <p class="card-text">Цена {{p.price}} руб.</p>
+        <p></p>
+
+    </div>
+    </div>
+    {% endfor %}
+</div>
+<hr>
+<form method="post" action="{% url 'create_order' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <a name="submit" href="{% url 'payment' %}" class="btn btn-light">Сделать заказ</a>
+    <a href="{% url 'cart' %}" class="btn color_back">Отмена</a>
+</form>
+            </div>
+    </div>
+ </div>
+{% endblock %}

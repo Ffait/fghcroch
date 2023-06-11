@@ -1,0 +1,18 @@
+{% extends 'croch/base.html' %}
+
+{% block content %}
+<h1 class="text-center">{{title}}</h1>
+
+ <div class="card mb-3 border-0 nth-shadow color_back">
+    <div class="card-body">
+            <div class="card-title">
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-light">Войти</button>
+    <a href="{% url 'register' %}" class="p-3">Регистрация</a>
+</form>
+ </div>
+    </div>
+ </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+ {% for c in cats %}
+    {% if c.pk == cat_selected %}
+        <li class="dropdown-item" >{{ c.name }} </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+        </li>
+    {% endif %}
+ {% endfor %}

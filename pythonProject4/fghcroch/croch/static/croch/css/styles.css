@@ -1,0 +1,32 @@
+.backgr {
+    background-image: url("../images/crochet.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.color_back {
+    background-color: #f9a6c9;
+}
+
+.footer {
+background-color: #f9a6c9;
+color: #000;
+height: auto;
+display: block;
+bottom: 0;
+text-align: center;
+width: auto;
+font-size: 18px;
+position: relative;
+justify-content: space-around;
+padding: 20px;
+}
+
+html,
+body {
+height: 100%;
+}
+#wrap {
+min-height: 80%;
+}

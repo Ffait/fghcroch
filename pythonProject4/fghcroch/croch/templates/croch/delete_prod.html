@@ -1,0 +1,13 @@
+{% extends 'croch/base.html' %}
+
+{% block content %}
+
+<div class="card shadow-lg p-3 color_back fw-bold text-white row col-6 mx-auto">
+    <form method="post" enctype="multipart/form-data">
+        <h1>Удалить продукт?</h1>
+{% csrf_token %}
+    <input class="btn btn-light" type="submit" value="Да">
+        <a class="btn color_back" href="/">Отмена</a>
+    </form>
+</div>
+{% endblock %}

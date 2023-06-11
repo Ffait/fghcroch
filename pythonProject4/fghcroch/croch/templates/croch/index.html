@@ -1,0 +1,24 @@
+{% extends 'croch/base.html' %}
+
+{% block content %}
+<h1 class="text-center">{{title}}</h1>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5 mx-auto">
+    {% for p in products %}
+    <div class="col">
+    <div class="card color_back p-3 text-center">
+        <h4 class="card-title">{{p.name}}</h4>
+        {% if p.photo %}
+        <img class="card-img-top" src="{{ p.photo.url }}" width="200" height="300" alt="{{ p.name }}">
+        {% endif %}
+        <p class="card-text">Цена {{p.price}} руб.</p>
+        <a href="{{ p.get_absolute_url }}" class="btn btn-light">О товаре...</a>
+        <hr>
+        <a href="{% url 'cart_add' p.id %}" class="btn btn-light">Добавить в корзину</a>
+        <p></p>
+
+    </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'croch/base.html' %}
+
+{% block content %}
+
+<div class="row card text-center col-5 p-3 mx-auto color_back">
+    <h1>{{product.name}}</h1>
+	{% if product.photo %}
+<p><img class="card-img-top" src="{{ product.photo.url }}" width="200" height="400" alt="{{ product.name }}">
+</p>
+	{% endif %}
+{% if product.content %}
+<p class="card-text">{{product.content}}</p>
+{% else %}
+{% endif %}
+<p class="card-text">Цена: {{product.price}} руб.</p>
+{% if product.structure %}
+<p class="card-text">Состав: {{product.structure}}</p>
+{% else %}
+{% endif %}
+{% if product.thickness %}
+<p class="card-text">Толщина инструмента: {{product.thickness}} мм</p>
+{% else %}
+{% endif %}
+{% if product.tr_length %}
+<p class="card-text">Длина нити: {{product.tr_length}} м</p>
+{% else %}
+{% endif %}
+{% if product.material %}
+<p class="card-text">Материал: {{product.material}}</p>
+{% else %}
+{% endif %}
+{% if product.size %}
+<p class="card-text">Размер: {{product.size}} см</p>
+{% else %}
+{% endif %}
+{% if product.color %}
+<p class="card-text">Цвет: {{product.color}}</p>
+{% else %}
+{% endif %}
+<p class="card-text">Категория продукта: {{product.cat}}</p>
+<a href="{% url 'cart_add' product.id %}" class="btn btn-light">Добавить в корзину</a>
+	{% if not user.is_superuser and not user.is_stuff %}
+	{% else %}
+	<p></p>
+<a href="{% url 'update' product.slug %}" class="btn btn-light">Редактировать</a>
+		<p></p>
+<a href="{% url 'delete' product.slug %}" class="btn btn-light">Удалить</a>
+	{% endif %}
+</div>
+<div class="col p-4">
+		<h5 class="card-title">
+			Комментарии
+		</h5>
+		{% include 'croch/comments_list.html' %}
+	</div>
+</div>
+{% endblock %}

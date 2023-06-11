@@ -1,0 +1,16 @@
+{% extends 'croch/base.html' %}
+{% block content %}
+
+ <div class="card mb-3 border-0 nth-shadow color_back">
+    <div class="card-body">
+            <div class="card-title">
+    {{ product.name }}
+
+<form action="{% url 'cart_add' product.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit" class="btn btn-light">Подтверждение</button>
+</form>
+            </div>
+    </div>
+{% endblock %}
